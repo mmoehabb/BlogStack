@@ -26,6 +26,9 @@ importers:
       vue-router:
         specifier: ^4.3.3
         version: 4.4.2(vue@3.4.35(typescript@5.4.5))
+      vue-toast-notification:
+        specifier: ^3.1.2
+        version: 3.1.2(vue@3.4.35(typescript@5.4.5))
     devDependencies:
       '@rushstack/eslint-patch':
         specifier: ^1.8.0
@@ -1495,6 +1498,12 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
+  vue-toast-notification@3.1.2:
+    resolution: {integrity: sha512-oNRL/W9aaHoeScp+iTIW7k09vM16/+8aptp2maa+7qTB43JuxmAgKdXKFYtf+uvSNOYYq2BIWgLCeJ61pwom/A==}
+    engines: {node: '>=12.15.0'}
+    peerDependencies:
+      vue: ^3.0
+
   vue-tsc@2.0.29:
     resolution: {integrity: sha512-MHhsfyxO3mYShZCGYNziSbc63x7cQ5g9kvijV7dRe1TTXBRLxXyL0FnXWpUF1xII2mJ86mwYpYsUmMwkmerq7Q==}
     hasBin: true
@@ -2888,6 +2897,10 @@ snapshots:
   vue-router@4.4.2(vue@3.4.35(typescript@5.4.5)):
     dependencies:
       '@vue/devtools-api': 6.6.3
+      vue: 3.4.35(typescript@5.4.5)
+
+  vue-toast-notification@3.1.2(vue@3.4.35(typescript@5.4.5)):
+    dependencies:
       vue: 3.4.35(typescript@5.4.5)
 
   vue-tsc@2.0.29(typescript@5.4.5):
