@@ -1,6 +1,5 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { signIn } from '@/lib/actions'
 
 export const useUserStore = defineStore('user', () => {
   const user = reactive({

@@ -12,8 +12,8 @@ const { user } = useUserStore()
 const { bookmarkExists } = useBookmarkStore()
 const bookmared = computed(() =>
   bookmarkExists({
-    blogger_username: user.username,
-    post_id: props.post.id
+    blogger_username: user?.username,
+    post_id: props.post?.id
   })
 )
 

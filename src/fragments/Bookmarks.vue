@@ -11,7 +11,7 @@ const posts = ref([] as Array<Post>)
 
 onMounted(async () => {
   try {
-    const res = await getBookmarkedPostsOf(user.username)
+    const res = await getBookmarkedPostsOf(user?.username)
     posts.value = res
   } catch (err: any) {
     console.error(err)
@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <PostsWrapper v-if="user.signedin" :posts="posts" />
+  <PostsWrapper v-if="user?.signedin" :posts="posts" />
   <div v-else class="flex w-full h-screen justify-center mt-52">
     <label class="text-xl text-red-400">You must login to enable this section.</label>
   </div>

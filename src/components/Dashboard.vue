@@ -19,7 +19,7 @@ const logoutHanlder = () => {
       <DashboardBtn primeicon="pi pi-bookmark" to="/dashboard/bookmarks" label="Bookmarks" />
     </div>
     <button
-      v-if="user.signedin"
+      v-if="user?.signedin"
       @click="logoutHanlder"
       to="/logout"
       class="w-full text-center bg-error text-white text-xl my-12 py-2 rounded-lg shadow"

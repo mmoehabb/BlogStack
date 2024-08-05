@@ -12,7 +12,7 @@ const { user, setUser } = useUserStore()
 
 const router = useRouter()
 
-if (user.signedin) {
+if (user?.signedin) {
   router.push({ path: 'dashboard' })
 }
 

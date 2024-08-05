@@ -20,7 +20,7 @@ function addHandler() {
 </script>
 
 <template>
-  <form v-if="user.signedin" class="w-full md:w-2/3 py-8 px-12 md:px-32">
+  <form v-if="user?.signedin" class="w-full md:w-2/3 py-8 px-12 md:px-32">
     <TextInput
       class="md:w-2/3 mb-4"
       label="Post Title"

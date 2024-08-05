@@ -25,7 +25,7 @@ const selectHandler = (e: { target: { selectedIndex: any } }) => {
 
 onMounted(async () => {
   try {
-    const res = await getPostsOf(user.username)
+    const res = await getPostsOf(user?.username)
     posts.value = res
   } catch (err: any) {
     console.error(err)
@@ -49,7 +49,7 @@ function saveHandler() {
 </script>
 
 <template>
-  <form v-if="user.signedin" class="w-full md:w-2/3 py-8 px-12 md:px-32">
+  <form v-if="user?.signedin" class="w-full md:w-2/3 py-8 px-12 md:px-32">
     <label class="form-control w-full max-w-xs mb-4">
       <div class="label">
         <span class="label-text text-lg text-base-100">Select Post</span>

@@ -2,7 +2,7 @@ import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import type { Post } from '@/lib/types'
 
-export const usePostStore = defineStore('user', () => {
+export const usePostStore = defineStore('post', () => {
   const posts = reactive({
     list: [] as Array<Post>
   })
