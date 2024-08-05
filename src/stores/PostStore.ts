@@ -1,14 +1,15 @@
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import { defineStore } from 'pinia'
+import type { Post } from '@/lib/types'
 
 export const usePostStore = defineStore('user', () => {
-  const user = reactive({
-    username: '',
-    signedin: false
+  const posts = reactive({
+    list: [] as Array<Post>
   })
 
-  const signIn = computed(() => (user.signedin = true))
-  const signOut = computed(() => (user.signedin = false))
+  const addPost = (post: Post) => {
+    posts.list.push(post)
+  }
 
-  return { user, signIn, signOut }
+  return { addPost }
 })

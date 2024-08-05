@@ -1,7 +1,24 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const checkbox = ref('')
+const lightHandler = () => {
+  document
+    .getElementsByTagName('body')[0]
+    .setAttribute('data-theme', checkbox.value ? 'dark_theme' : 'light_theme')
+}
+</script>
+
 <template>
   <label class="swap swap-rotate">
     <!-- this hidden checkbox controls the state -->
-    <input type="checkbox" class="theme-controller" value="synthwave" />
+    <input
+      @change="lightHandler"
+      v-model="checkbox"
+      type="checkbox"
+      class="theme-controller"
+      value="synthwave"
+    />
 
     <!-- sun icon -->
     <svg

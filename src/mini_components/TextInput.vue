@@ -24,7 +24,7 @@ const hanlder = (e: any) => {
 <template>
   <div class="form-control">
     <div class="label">
-      <span class="label-text text-lg" :class="labelClass">{{ props.label }}</span>
+      <span class="text-base-100 label-text text-lg" :class="labelClass">{{ props.label }}</span>
     </div>
     <input
       v-if="props.type !== 'password'"
@@ -32,14 +32,14 @@ const hanlder = (e: any) => {
       @input="hanlder"
       :type="props.type"
       :placeholder="props.placeholder"
-      class="input input-bordered w-full bg-white text-primary border-secondary"
+      class="input input-bordered w-full bg-neutral text-primary border-secondary"
     />
     <Password
       v-else
       v-model="value"
       @input="hanlder"
       placeholder="Enter a passowrd"
-      class="input input-bordered w-full bg-white text-primary border-secondary"
+      class="input input-bordered w-full bg-neutral text-primary border-secondary"
       :feedback="feedback || false"
     >
       <template #header>

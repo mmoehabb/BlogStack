@@ -10,8 +10,13 @@ const { user } = useUserStore()
 
 const editor_value = ref('')
 onBeforeMount(() => usePreset(nora))
-
 onBeforeUnmount(() => usePreset({}))
+
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
+function addHandler() {
+  $toast.error('Something went wrong!')
+}
 </script>
 
 <template>
@@ -29,8 +34,14 @@ onBeforeUnmount(() => usePreset({}))
       v-model="editor_value"
       editorStyle="height: 320px; background-color: #FFF; color: #000;"
     />
+    <button
+      @click.prevent="addHandler"
+      class="px-12 py-6 my-12 bg-accent text-white text-xl rounded-xl"
+    >
+      Add Post
+    </button>
   </form>
-  <div v-else class="flex w-full justify-center mt-16">
+  <div v-else class="flex w-full h-screen justify-center mt-52">
     <label class="text-xl text-red-400">You must login to enable this section.</label>
   </div>
 </template>

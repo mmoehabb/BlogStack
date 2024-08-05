@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SplashView from '../views/SplashView.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,7 +27,9 @@ const router = createRouter({
       path: '/dashboard/:fragment?',
       name: 'dashboard',
       component: () => import('@/views/DashboardView.vue')
-    }
+    },
+    // will match everything and put it under `route.params.pathMatch`
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
   ]
 })
 

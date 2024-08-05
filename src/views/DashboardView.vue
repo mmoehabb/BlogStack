@@ -33,8 +33,8 @@ const fragment = computed(() => {
 
 <template>
   <Header />
-  <section class="flex w-screen h-screen p-12">
-    <Dashboard class="self-start" />
+  <section class="flex w-screen max-h-[200vh] p-12">
+    <Dashboard class="sticky self-start" />
     <component :is="fragment"></component>
   </section>
   <Footer />

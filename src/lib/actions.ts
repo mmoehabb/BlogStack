@@ -13,6 +13,20 @@ export async function getBookmarks() {
   return bookmarks
 }
 
+export async function getPostsOf(username: string) {
+  const posts = await getPosts()
+  return posts.filter((obj) => obj.blogger_username === username)
+}
+
+export async function getBookmarkedPostsOf(username: string) {
+  const posts = await getPosts()
+  const bookmarks = await getBookmarks()
+  const filtered_bookmarks = bookmarks.filter((obj) => obj.blogger_username === username)
+  return filtered_bookmarks.map((bookmark) =>
+    posts.find((post) => post.id === bookmark.post_id)
+  ) as Array<Post>
+}
+
 export async function getPopular() {
   return posts.slice(0, 5)
 }

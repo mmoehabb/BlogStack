@@ -16,11 +16,17 @@ const bookmared = computed(() =>
     post_id: props.post.id
   })
 )
+
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
+const deleteHanlder = () => {
+  $toast.error('Something went wrong!')
+}
 </script>
 
 <template>
   <div
-    class="max-w-3xl p-12 bg-white rounded-lg shadow-lg select-none hover:scale-[105%] transition ease-in"
+    class="max-w-3xl p-12 bg-neutral rounded-lg shadow-lg select-none hover:scale-[105%] transition ease-in"
   >
     <div>
       <RouterLink
@@ -31,14 +37,17 @@ const bookmared = computed(() =>
       <h2 class="mt-2 text-lg text-secondary">by {{ post.blogger_username }}</h2>
     </div>
     <p class="max-h-52 text-base-100 text-pretty my-6 truncate">{{ post.content }}</p>
-    <div class="flex w-full justify-between">
+    <div class="text-base-200 flex w-full justify-between">
       <label>{{ post.date }}</label>
       <span
         v-if="!props.mine"
         :class="{ 'pi pi-bookmark-fill': bookmared, 'pi pi-bookmark': !bookmared }"
+        @click="deleteHanlder"
         class="cursor-pointer hover:translate-y-1 transition"
       ></span>
-      <span v-else class="cursor-pointer pi pi-trash hover:translate-y-1 transition"></span>
+      <button v-else @click="deleteHanlder">
+        <span class="cursor-pointer pi pi-trash hover:translate-y-1 transition"></span>
+      </button>
     </div>
   </div>
 </template>

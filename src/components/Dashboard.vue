@@ -22,14 +22,14 @@ const logoutHanlder = () => {
       v-if="user.signedin"
       @click="logoutHanlder"
       to="/logout"
-      class="w-full text-center bg-red-400 text-white text-xl my-12 py-2 rounded-lg shadow"
+      class="w-full text-center bg-error text-white text-xl my-12 py-2 rounded-lg shadow"
     >
       Logout
     </button>
     <RouterLink
       v-else
       to="/login"
-      class="w-full text-center bg-green-400 text-white text-xl my-12 py-2 rounded-lg shadow"
+      class="w-full text-center bg-success text-white text-xl my-12 py-2 rounded-lg shadow"
       >Login</RouterLink
     >
   </div>

@@ -8,12 +8,10 @@ const props = defineProps<{
   posts: Array<Post>
   mine?: boolean
 }>()
-
-console.log(props.mine)
 </script>
 
 <template>
-  <div class="flex flex-col items-center w-full p-12">
-    <PostCard v-for="post in props.posts" :post="post" :mine="props.mine" />
+  <div class="flex flex-col items-center w-full h-auto p-12 overflow-y-auto">
+    <PostCard class="mb-12" v-for="post in props.posts" :post="post" :mine="props.mine" />
   </div>
 </template>
