@@ -4,6 +4,9 @@ import Editor from 'primevue/editor'
 import { usePreset } from '@primevue/themes'
 import nora from '@primevue/themes/nora'
 
+import { useUserStore } from '@/stores/UserStore'
+const { user } = useUserStore()
+
 const editor_value = ref('')
 onBeforeMount(() => usePreset(nora))
 onBeforeUnmount(() => usePreset({}))
@@ -21,7 +24,7 @@ const myposts = [
 </script>
 
 <template>
-  <form class="w-full md:w-2/3 py-8 px-12 md:px-32">
+  <form v-if="user.signedin" class="w-full md:w-2/3 py-8 px-12 md:px-32">
     <label class="form-control w-full max-w-xs mb-4">
       <div class="label">
         <span class="label-text text-lg text-base-100">Select Post</span>
@@ -38,4 +41,7 @@ const myposts = [
       editorStyle="height: 320px; background-color: #FFF; color: #000;"
     />
   </form>
+  <div v-else class="flex w-full justify-center mt-16">
+    <label class="text-xl text-red-400">You must login to enable this section.</label>
+  </div>
 </template>

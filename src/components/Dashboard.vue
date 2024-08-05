@@ -2,7 +2,11 @@
 import DashboardBtn from '@/mini_components/DashboardBtn.vue'
 import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/stores'
-const { user } = useUserStore()
+const { user, setUser } = useUserStore()
+
+const logoutHanlder = () => {
+  setUser('', '', false)
+}
 </script>
 
 <template>
@@ -14,12 +18,14 @@ const { user } = useUserStore()
       <DashboardBtn primeicon="pi pi-file-edit" to="/dashboard/editpost" label="Edit Post" />
       <DashboardBtn primeicon="pi pi-bookmark" to="/dashboard/bookmarks" label="Bookmarks" />
     </div>
-    <RouterLink
+    <button
       v-if="user.signedin"
+      @click="logoutHanlder"
       to="/logout"
       class="w-full text-center bg-red-400 text-white text-xl my-12 py-2 rounded-lg shadow"
-      >Logout</RouterLink
     >
+      Logout
+    </button>
     <RouterLink
       v-else
       to="/login"
