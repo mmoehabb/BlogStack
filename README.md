@@ -2,6 +2,8 @@
 
 Simple vue.js application for publishing digital blogs world wide.
 
+> Try it: [https://blog-stack.netlify.app/](https://blog-stack.netlify.app/)
+
 ## Prototype
 
 ![Splash Screen](./prototype/ui/Splash/Full%20HD.jpg)
