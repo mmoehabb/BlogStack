@@ -1,4 +1,5 @@
 # BlogStack
+
 Simple vue.js application for publishing digital blogs world wide.
 
 ## Prototype
@@ -14,10 +15,10 @@ Simple vue.js application for publishing digital blogs world wide.
 
 ## Data Representation
 
-### blogger
+### Blogger
+
 ```TypeScript
 {
-    id: string,
     nickname: string,
     username: string,
     password: string,
@@ -25,22 +26,26 @@ Simple vue.js application for publishing digital blogs world wide.
 }
 ```
 
-### post
+### Post
+
 ```TypeScript
 {
     id: number,
-    blogger_id: string,
+    blogger_username: string,
     title: string,
-    contant: string,
+    content: string,
+    date: string
 }
 ```
 
-### bookmark
-```TypeScript
-    blogger_id: string,
-    post_id: number
-```
+### Bookmark
 
+```TypeScript
+{
+    blogger_username: string,
+    post_id: number
+}
+```
 
 ## Type Support for `.vue` Imports in TS
 
@@ -72,3 +77,4 @@ pnpm build
 
 ```sh
 pnpm lint
+```

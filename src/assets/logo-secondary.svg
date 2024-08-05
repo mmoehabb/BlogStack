@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="372px" height="372px" viewBox="0 0 372 372" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M372 0L372 0L372 372L0 372L0 0L372 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Google Blog Search">
+    <path d="M372 0L372 0L372 372L0 372L0 0L372 0Z" id="Google-Blog-Search" fill="none" stroke="none" />
+    <path d="M111.6 22.32L111.6 148.335L141.36 133.222L171.12 148.8L171.12 22.32L111.6 22.32ZM81.84 44.64C56.8172 44.64 37.2 64.2572 37.2 89.28L37.2 245.52C37.2 270.543 56.8172 290.16 81.84 290.16L89.28 290.16L89.28 351.308L159.03 290.16L297.6 290.16C322.623 290.16 342.24 270.543 342.24 245.52L342.24 89.28C342.24 64.2572 322.623 44.64 297.6 44.64L186 44.64L186 166.47L141.36 223.2L96.72 166.47L96.72 44.64L81.84 44.64ZM141.36 149.497L113.693 163.448L131.363 186L151.125 186L168.563 163.68L141.36 149.497ZM142.29 223.2L327.36 223.2L327.36 245.52C327.36 262.202 314.282 275.28 297.6 275.28L175.073 275.28L142.29 223.2Z" id="Shape" fill="#d0bba3" fill-rule="evenodd" stroke="none" clip-path="url(#clip_1)" />
+  </g>
+</svg>

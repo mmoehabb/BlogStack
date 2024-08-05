@@ -1,11 +1,14 @@
-Your selected colors:
-
-    Text: #11100e - rgb(17, 16, 14) - hsl(40, 10%, 6%)
-    Background: #f8f7f6 - rgb(248, 247, 246) - hsl(30, 12%, 97%)
-    Primary: #a88e6f - rgb(168, 142, 111) - hsl(33, 25%, 55%)
-    Secondary: #d0bba3 - rgb(208, 187, 163) - hsl(32, 32%, 73%)
-    Accent: #c4a279 - rgb(196, 162, 121) - hsl(33, 39%, 62%)
-
-Realtime Colors link for selected colors: https://www.realtimecolors.com/?colors=11100e-f8f7f6-a88e6f-d0bba3-c4a279&fonts=Inter-Inter
-
-Thanks for using RealtimeColors.com!
+:root[data-theme="light"] {
+  --text: #11100e;
+  --background: #f8f7f6;
+  --primary: #a99070;
+  --secondary: #d0bba4;
+  --accent: #c4a278;
+}
+:root[data-theme="dark"] {
+  --text: #f1f0ee;
+  --background: #090807;
+  --primary: #8f7756;
+  --secondary: #5b462f;
+  --accent: #87653b;
+}
