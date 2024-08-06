@@ -6,9 +6,7 @@ import DiscordLogo from '@/assets/discord.png'
 </script>
 
 <template>
-  <div
-    class="flex justify-between items-center w-screen p-24 px-32 pt-12 bg-primary text-secondary"
-  >
+  <div class="flex justify-between items-center w-screen px-32 py-8 bg-primary text-secondary">
     <div class="flex flex-col items-start">
       <img :src="Logo" class="h-32" />
       <h1 class="ml-4 text-4xl font-semibold">BlogStack</h1>

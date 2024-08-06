@@ -6,7 +6,6 @@ import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const posts = ref([] as Array<Post>)
-
 onMounted(async () => {
   try {
     const res = await getPosts()
@@ -18,9 +17,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <PostsWrapper :posts="posts" />
-
-  <div class="self-start text-center w-1/3 bg-accent text-white rounded">
+  <PostsWrapper class="flex flex-col items-center w-4/5" :posts="posts" :limit="5" />
+  <div class="fixed right-12 self-start text-center w-96 bg-accent text-white rounded">
     <h1 class="text-2xl py-4">Most Popular</h1>
     <div class="pb-6 px-6 text-left text-lg">
       <ol>

@@ -20,7 +20,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <PostsWrapper v-if="user?.signedin" :posts="posts" :mine="true" />
+  <PostsWrapper
+    v-if="user?.signedin"
+    class="grid grid-cols-2 gap-8"
+    :posts="posts"
+    :limit="5"
+    :mine="true"
+  />
   <div v-else class="flex w-full h-screen justify-center mt-52">
     <label class="text-xl text-red-400">You must login to enable this section.</label>
   </div>

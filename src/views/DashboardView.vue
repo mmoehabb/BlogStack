@@ -32,10 +32,10 @@ const fragment = computed(() => {
 </script>
 
 <template>
-  <Header />
-  <section class="flex w-screen max-h-[200vh] p-12">
-    <Dashboard class="sticky self-start" />
-    <component :is="fragment"></component>
+  <Header class="fixed bg-base-content opacity-1 z-[2] h-32" />
+  <section class="flex w-screen p-12 mt-32">
+    <component :is="Dashboard" class="fixed self-start z-[1]"></component>
+    <component :is="fragment" class="ml-52"></component>
   </section>
   <Footer />
 </template>

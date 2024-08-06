@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-const checkbox = ref('')
+const checkbox = ref(false) // false means: light_theme (icon) on
 const lightHandler = () => {
+  console.log(checkbox)
+  document.documentElement.setAttribute('data-theme', checkbox.value ? 'dark_theme' : 'light_theme')
   document
     .getElementsByTagName('body')[0]
     .setAttribute('data-theme', checkbox.value ? 'dark_theme' : 'light_theme')
 }
+
+onMounted(() => {
+  const curtheme = document.getElementsByTagName('body')[0].getAttribute('data-theme')
+  if (curtheme === 'dark_theme') {
+    checkbox.value = true
+  }
+})
 </script>
 
 <template>

@@ -37,7 +37,7 @@ const deleteHanlder = () => {
       <h2 class="mt-2 text-lg text-secondary">by {{ post.blogger_username }}</h2>
     </div>
     <p class="max-h-52 text-base-100 text-pretty my-6 truncate">{{ post.content }}</p>
-    <div class="text-base-200 flex w-full justify-between">
+    <div class="text-accent flex w-full justify-between">
       <label>{{ post.date }}</label>
       <span
         v-if="!props.mine"

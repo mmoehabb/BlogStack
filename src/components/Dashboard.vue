@@ -11,7 +11,7 @@ const logoutHanlder = () => {
 
 <template>
   <div class="flex flex-col w-52 h-auto">
-    <div class="bg-background shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-neutral shadow-lg rounded-lg overflow-hidden">
       <DashboardBtn primeicon="pi pi-search" to="/dashboard/explore" label="Explore" default />
       <DashboardBtn primeicon="pi pi-user" to="/dashboard/myblog" label="My Blog" />
       <DashboardBtn primeicon="pi pi-file-plus" to="/dashboard/addpost" label="Add Post" />
