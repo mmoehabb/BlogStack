@@ -31,7 +31,7 @@ const loginHandler = async () => {
 </script>
 
 <template>
-  <form class="flex flex-col justify-center items-center w-full md:w-1/2">
+  <form class="flex flex-col justify-between items-center w-full md:w-1/2 px-6 md:px-0">
     <div class="flex flex-wrap justify-center">
       <TextInput
         :onChange="(value: any) => (username = value)"
@@ -50,12 +50,15 @@ const loginHandler = async () => {
     </div>
 
     <div class="flex flex-col items-center my-12 w-full md:w-2/3">
-      <button @click.prevent="loginHandler" class="text-3xl py-6 text-white bg-primary w-full">
+      <button
+        @click.prevent="loginHandler"
+        class="text-2xl md:text-3xl py-2 md:py-6 text-white bg-primary w-full"
+      >
         Login
       </button>
       <RouterLink
         to="/register"
-        class="text-center text-3xl mt-4 px-12 py-6 text-primary bg-background border-4 border-primary w-full"
+        class="text-center text-2xl md:text-3xl mt-4 px-12 py-2 md:py-6 text-primary bg-background border-4 border-primary w-full"
         >Register</RouterLink
       >
     </div>

@@ -22,7 +22,7 @@ onMounted(async () => {
 <template>
   <PostsWrapper
     v-if="user?.signedin"
-    class="grid grid-cols-2 gap-8"
+    class="flex flex-col items-center lg:grid grid-cols-2 gap-8"
     :posts="posts"
     :limit="5"
     :mine="true"

@@ -30,7 +30,7 @@ async function showMoreHandler() {
 </script>
 
 <template>
-  <div class="h-auto p-12 overflow-y-auto">
+  <div class="h-auto p-2 md:p-12 overflow-y-auto">
     <PostCard class="mb-12" v-for="post in slicedPosts" :post="post" :mine="props.mine" />
     <button
       @click="showMoreHandler"

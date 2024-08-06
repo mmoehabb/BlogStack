@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 
 const checkbox = ref(false) // false means: light_theme (icon) on
 const lightHandler = () => {
-  console.log(checkbox)
   document.documentElement.setAttribute('data-theme', checkbox.value ? 'dark_theme' : 'light_theme')
   document
     .getElementsByTagName('body')[0]

@@ -21,13 +21,13 @@ const isSelected = computed(() => {
 <template>
   <RouterLink
     :to="props.to"
-    class="flex justify-between items-center border-0 w-full py-4 px-8 text-xl no-animation shadow-none"
+    class="flex justify-center items-center border-0 w-full py-2 md:py-4 px-4 md:px-8 text-md md:text-xl no-animation shadow-none"
     :class="{
       'text-white bg-accent': isSelected,
       'text-accent bg-background': !isSelected
     }"
   >
-    <span class="mx-4" :class="props.primeicon"></span>
+    <span class="mr-2 md:mx-4" :class="props.primeicon"></span>
     <label class="text-left w-full cursor-pointer">{{ props.label }}</label>
   </RouterLink>
 </template>

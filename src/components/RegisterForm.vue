@@ -25,25 +25,25 @@ const registerHandler = async () => {
 </script>
 
 <template>
-  <form class="flex flex-col justify-center items-center w-full md:w-1/2">
-    <div class="flex flex-wrap justify-center">
+  <form class="flex flex-col justify-center items-center w-full lg:w-1/2 p-6 lg:p-0">
+    <div class="flex flex-col lg:flex-row lg:flex-wrap justify-center w-full lg:w-auto">
       <TextInput
         :onChange="(val: any) => (formData.nickname = val)"
-        class="w-1/3 m-3"
+        class="mt-4 lg:w-1/3 lg:m-3"
         label="Nickname"
         placeholder="Enter your nickname"
         type="text"
       />
       <TextInput
         :onChange="(val: any) => (formData.username = val)"
-        class="w-1/3 m-3"
+        class="mt-4 lg:w-1/3 lg:m-3"
         label="Username"
         placeholder="Enter unique username"
         type="text"
       />
       <TextInput
         :onChange="(val: any) => (formData.password = val)"
-        class="w-1/3 m-3"
+        class="mt-4 lg:w-1/3 lg:m-3"
         label="Password"
         placeholder="Enter password"
         type="password"
@@ -51,7 +51,7 @@ const registerHandler = async () => {
       />
       <TextInput
         :onChange="(val: any) => (formData.email = val)"
-        class="w-1/3 m-3"
+        class="mt-4 lg:w-1/3 lg:m-3"
         label="Email"
         placeholder="Enter your email"
         type="email"
