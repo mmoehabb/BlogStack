@@ -11,5 +11,9 @@ export const usePostStore = defineStore('post', () => {
     posts.list.push(post)
   }
 
-  return { addPost }
+  const getPost = (id: number) => {
+    return posts.list.find((post) => post.id === id)
+  }
+
+  return { posts, addPost, getPost }
 })

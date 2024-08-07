@@ -25,7 +25,7 @@ onMounted(async () => {
     <div class="pb-6 px-6 text-left text-lg">
       <ol>
         <li v-for="({ title, id }, i) in posts" class="truncate hover:underline">
-          <RouterLink :to="`/post/${id}`">{{ i + 1 }}. {{ title }}</RouterLink>
+          <RouterLink :to="`/dashboard/post/${id}`">{{ i + 1 }}. {{ title }}</RouterLink>
         </li>
       </ol>
     </div>

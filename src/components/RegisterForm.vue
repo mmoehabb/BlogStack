@@ -20,6 +20,7 @@ const registerHandler = async () => {
     $toast.success('Your account has been registered. Try login.')
   } else {
     $toast.error('Something went wrong!')
+    $toast.info('Just try loging in with any credentials!')
   }
 }
 </script>

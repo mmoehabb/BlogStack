@@ -26,6 +26,7 @@ const loginHandler = async () => {
     router.push({ path: 'dashboard' })
   } else {
     $toast.error('Invalid credentials! Check your username and password.')
+    $toast.info('You may wanna try admin; username = password = "admin"')
   }
 }
 </script>

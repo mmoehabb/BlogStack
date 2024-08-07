@@ -11,6 +11,7 @@ import MyBlog from '@/fragments/MyBlog.vue'
 import AddPost from '@/fragments/AddPost.vue'
 import EditPost from '@/fragments/EditPost.vue'
 import Bookmarks from '@/fragments/Bookmarks.vue'
+import PostPage from '@/fragments/PostPage.vue'
 
 const screenWidth = document.documentElement.clientWidth
 const router = useRoute()
@@ -26,6 +27,8 @@ const fragment = computed(() => {
       return EditPost
     case 'bookmarks':
       return Bookmarks
+    case 'post':
+      return PostPage
   }
   return Explore
 })
