@@ -1,9 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<BloggingContext>(options =>
+  options.UseNpgsql(builder.Configuration.GetConnectionString("BloggingContext")));
 
 var app = builder.Build();
 
@@ -16,29 +20,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+using (var scope = app.Services.CreateScope())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<BloggingContext>();
+    context.Database.EnsureCreated();
+    // DbInitializer.Initialize(context);
+}
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/add/writer", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+  using(var scope = app.Services.CreateScope()) 
+  {
+      var context = scope.ServiceProvider.GetRequiredService<BloggingContext>();
+      context.Add<Models.Writer>(new Models.Writer{ 
+          Username = "User1",
+          Password = "123456",
+          DisplayName = "Mahmoud",
+          Email = "example@example.com",
+      });
+      context.SaveChanges();
+  }
+  return "Done.";
 })
-.WithName("GetWeatherForecast")
+.WithName("AddWriter")
 .WithOpenApi();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
