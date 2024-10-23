@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Models;
+using BlogStack.Models;
 
 public class BloggingContext : DbContext 
 {
