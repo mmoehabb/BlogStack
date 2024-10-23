@@ -1,47 +1,68 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Models;
+using Microsoft.AspNetCore.Mvc;
+using BlogStack.Models;
 
-public class WriterController
+[ApiController]
+[Route("/api/writers")]
+public class WriterController : ControllerBase
 {
-  private BloggingContext service;
+  private readonly BloggingContext _ctx;
 
-  public WriterController(IServiceScope scope) 
+  public WriterController(BloggingContext context) 
   {
-    this.service = scope.ServiceProvider.GetRequiredService<BloggingContext>();
+    this._ctx = context;
   }
 
-  public async Task<Writer?> Get(string username) 
+  [HttpGet]
+  [Route("{username}")]
+  public async Task<IActionResult> Get(string username) 
   {
-    return await service.Writers.FindAsync(username);
+    var writer = await _ctx.Writers.FindAsync(username);
+    return Ok(writer);
   }
 
-  public bool Exists(Writer w) 
+  [HttpGet]
+  [Route("all")]
+  public IActionResult GetAll() 
   {
-    return service.Writers.Any(writer =>
-      writer.Username.Equals(w.Username) ||
-      writer.Email != null && writer.Email.Equals(w.Email)
-    );
+    var writers = _ctx.Writers.ToList();
+    return Ok(writers);
   }
 
-  public async Task<Dictionary<string, string>> Add(Writer w) 
+  [HttpPost]
+  [Route("auth")]
+  public async Task<IActionResult> Auth(Writer w) 
+  {
+    var writer = await _ctx.Writers.FindAsync(w.Username);
+    if (writer == null) {
+      return NotFound();
+    }
+    var db_password = writer.Password;
+    if (db_password.Equals(Hasher.HmacSHA256(w.Password))) {
+      return Ok();
+    }
+    return Unauthorized();
+  }
+
+  [HttpPost]
+  [Route("register")]
+  public async Task<IActionResult> Add(Writer w) 
   {
     var errors = WriterValidator.Validate(w);
     if (errors.Any()) {
-      return errors;
+      return BadRequest(errors);
     }
-    await service.Writers.AddAsync(w);
-    await service.SaveChangesAsync();
-    return errors;
+    w.Password = Hasher.HmacSHA256(w.Password);
+    await _ctx.Writers.AddAsync(w);
+    _ctx.SaveChanges();
+    return Ok();
   }
 
-  public async Task<Results<Ok, NotFound>> Remove(Writer w) 
+  [HttpDelete]
+  [Route("delete")]
+  public async Task<IActionResult> Remove(Writer w) 
   {
-    var found = service.Writers.Any(e => e.Equals(w));
-    if (!found) {
-      return TypedResults.NotFound();
-    }
-    service.Writers.Remove(w);
-    await service.SaveChangesAsync();
-    return TypedResults.Ok();
+    _ctx.Writers.Remove(w);
+    await _ctx.SaveChangesAsync();
+    return Ok();
   }
 }
