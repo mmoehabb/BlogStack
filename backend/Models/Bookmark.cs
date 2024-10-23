@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Models
+namespace BlogStack.Models
 {
   [PrimaryKey(nameof(Id))]
   public class Bookmark {

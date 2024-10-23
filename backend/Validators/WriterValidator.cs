@@ -1,11 +1,12 @@
 using System.Net.Mail;
+using BlogStack.Models;
 
 public static class WriterValidator 
 {
   // Validate function ensures that a writer object is well supplied
   // and returns an empty dictionary. Otherwise, it returns the di-
   // ctionary filled with the related invalid data inputs.
-  public static Dictionary<string, string> Validate(Models.Writer w)
+  public static Dictionary<string, string> Validate(Writer w)
   {
     var errors = new Dictionary<string, string>();
     if (w.Username.Length < 6) errors["username"] = "Username must contain at least 6 characters.";

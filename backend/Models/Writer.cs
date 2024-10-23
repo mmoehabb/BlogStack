@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Models
+namespace BlogStack.Models
 {
   [PrimaryKey(nameof(Username))]
   public class Writer {
