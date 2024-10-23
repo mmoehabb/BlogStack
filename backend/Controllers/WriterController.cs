@@ -10,9 +10,9 @@ public class WriterController
     this.service = scope.ServiceProvider.GetRequiredService<BloggingContext>();
   }
 
-  public Writer? Get(string username) 
+  public async Task<Writer?> Get(string username) 
   {
-    return service.Writers.Find(username);
+    return await service.Writers.FindAsync(username);
   }
 
   public bool Exists(Writer w) 
@@ -23,25 +23,25 @@ public class WriterController
     );
   }
 
-  public Dictionary<string, string> Add(Writer w) 
+  public async Task<Dictionary<string, string>> Add(Writer w) 
   {
     var errors = WriterValidator.Validate(w);
     if (errors.Any()) {
       return errors;
     }
-    service.Writers.Add(w);
-    service.SaveChanges();
+    await service.Writers.AddAsync(w);
+    await service.SaveChangesAsync();
     return errors;
   }
 
-  public Results<Ok, NotFound> Remove(Writer w) 
+  public async Task<Results<Ok, NotFound>> Remove(Writer w) 
   {
     var found = service.Writers.Any(e => e.Equals(w));
     if (!found) {
       return TypedResults.NotFound();
     }
     service.Writers.Remove(w);
-    service.SaveChanges();
+    await service.SaveChangesAsync();
     return TypedResults.Ok();
   }
 }

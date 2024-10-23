@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,43 +40,10 @@ using (var scope = app.Services.CreateScope()) {
 // [DELETE] /post/delete
 // [DELETE] /bookmark/delete
 
-app.MapPost("/register", Results<Ok, Conflict<string>, BadRequest<Dictionary<string, string>>> (Writer w) =>
-{
-  using (var scope = app.Services.CreateScope())
-  {
-    var c = new WriterController(scope);
-    if (c.Exists(w)) {
-      return TypedResults.Conflict("Username or Email is already used.");
-    }
-    w.Password = Hasher.HmacSHA256("justanarbitrarykey", w.Password);
-    var errors = c.Add(w);
-    if (errors.Any()) {
-      return TypedResults.BadRequest(errors);
-    }
-    return TypedResults.Ok();
-  }
-})
-.WithName("AddWriter")
-.WithOpenApi();
+var writerHandler = new WriterHandler(app);
 
-app.MapPost("/auth", Results<Ok, UnauthorizedHttpResult, NotFound> (Writer w) =>
-{
-  using (var scope = app.Services.CreateScope()) 
-  {
-    var c = new WriterController(scope);
-    var data = c.Get(w.Username);
-    if (data == null) {
-      return TypedResults.NotFound();
-    }
-    w.Password = Hasher.HmacSHA256("justanarbitrarykey", w.Password);
-    if (!data.Password.Equals(w.Password)) {
-      return TypedResults.Unauthorized();
-    }
-    return TypedResults.Ok();
-  }
-})
-.WithName("Authenticate")
-.WithOpenApi();
+app.MapPost("/register", writerHandler.Register).WithName("RegisterWriter").WithOpenApi();
+app.MapPost("/auth", writerHandler.Auth).WithName("AuthenticateWriter").WithOpenApi();
 
 app.Run();
 
