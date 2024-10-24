@@ -8,10 +8,13 @@ using BlogStack.DTOs;
 public class WritersController : ControllerBase
 {
   private readonly BloggingContext _ctx;
+  private readonly IMapper _mapper;
 
   public WritersController(BloggingContext context) 
   {
     this._ctx = context;
+    var cfg = new MapperConfiguration(cfg => cfg.CreateMap<Writer, GetWriterDTO>());
+    this._mapper = new Mapper(cfg);
   }
 
   [HttpGet]
@@ -22,9 +25,7 @@ public class WritersController : ControllerBase
     if (writer == null) {
       return NotFound();
     }
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<Writer, GetWriterDTO>());
-    var dto = (new Mapper(config)).Map<GetWriterDTO>(writer);
-    return Ok(dto);
+    return Ok(_mapper.Map<GetWriterDTO>(writer));
   }
 
   [HttpGet]
@@ -32,9 +33,8 @@ public class WritersController : ControllerBase
   public IActionResult GetAll() 
   {
     var writers = _ctx.Writers.ToList();
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<List<Writer>, List<GetWriterDTO>>());
-    var dto = (new Mapper(config)).Map<List<GetWriterDTO>>(writers);
-    return Ok(dto);
+    var config = new MapperConfiguration(cfg => cfg.CreateMap<Writer, GetWriterDTO>());
+    return Ok(_mapper.Map<List<GetWriterDTO>>(writers));
   }
 
   [HttpPost]

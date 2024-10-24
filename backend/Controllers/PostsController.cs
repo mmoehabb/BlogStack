@@ -8,10 +8,13 @@ using BlogStack.DTOs;
 public class PostsController : ControllerBase
 {
   private readonly BloggingContext _ctx;
+  private readonly Mapper _mapper;
 
   public PostsController(BloggingContext context) 
   {
     this._ctx = context;
+    var cfg = new MapperConfiguration(cfg => cfg.CreateMap<Post, GetPostDTO>());
+    this._mapper = new Mapper(cfg);
   }
 
   [HttpGet]
@@ -19,9 +22,7 @@ public class PostsController : ControllerBase
   public async Task<IActionResult> Get(int id) 
   {
     var post = await _ctx.Posts.FindAsync(id);
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<Post, GetPostDTO>());
-    var dto = (new Mapper(config)).Map<GetPostDTO>(post);
-    return Ok(dto);
+    return Ok(_mapper.Map<GetPostDTO>(post));
   }
 
   [HttpGet]
@@ -29,9 +30,7 @@ public class PostsController : ControllerBase
   public IActionResult GetAll() 
   {
     var posts = _ctx.Posts.ToList();
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<Post[], GetPostDTO[]>());
-    var dto = (new Mapper(config)).Map<GetPostDTO[]>(posts);
-    return Ok(dto);
+    return Ok(_mapper.Map<List<GetPostDTO>>(posts));
   }
 
   [HttpGet]
@@ -39,9 +38,7 @@ public class PostsController : ControllerBase
   public IActionResult GetOfWriter(string username) 
   {
     var posts = _ctx.Posts.Where(p => p.Writer.Username == username);
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<Post[], GetPostDTO[]>());
-    var dto = (new Mapper(config)).Map<GetPostDTO[]>(posts);
-    return Ok(dto);
+    return Ok(_mapper.Map<List<GetPostDTO>>(posts));
   }
 
   [HttpGet]
@@ -52,9 +49,7 @@ public class PostsController : ControllerBase
       return BadRequest("index should be at least 0, and limit at most 20.");
     }
     var posts = _ctx.Posts.Skip(index).Take(limit);
-    var config = new MapperConfiguration(cfg => cfg.CreateMap<Post[], GetPostDTO[]>());
-    var dto = (new Mapper(config)).Map<GetPostDTO[]>(posts);
-    return Ok(dto);
+    return Ok(_mapper.Map<List<GetPostDTO>>(posts));
   }
 
   [HttpPost]
@@ -80,7 +75,7 @@ public class PostsController : ControllerBase
   }
 
   [HttpDelete]
-  [Route("delete/{id}")]
+  [Route("delete")]
   public async Task<IActionResult> Remove(RmvPostDTO dto) 
   {
     var writer = await _ctx.Writers.FindAsync(dto.Writer.Username);
