@@ -31,7 +31,7 @@ public class WriterController : ControllerBase
 
   [HttpPost]
   [Route("auth")]
-  public async Task<IActionResult> Auth(WriterDTOs.Auth w) 
+  public async Task<IActionResult> Auth(AuthWriterDTO w) 
   {
     var writer = await _ctx.Writers.FindAsync(w.Username);
     if (writer == null) {
@@ -46,7 +46,7 @@ public class WriterController : ControllerBase
 
   [HttpPost]
   [Route("register")]
-  public async Task<IActionResult> Add(WriterDTOs.Add dto) 
+  public async Task<IActionResult> Add(AddWriterDTO dto) 
   {
     var w = new Writer {
       Username = dto.Username,
@@ -65,7 +65,7 @@ public class WriterController : ControllerBase
 
   [HttpDelete]
   [Route("delete")]
-  public async Task<IActionResult> Remove(WriterDTOs.Auth dto) 
+  public async Task<IActionResult> Remove(AuthWriterDTO dto) 
   {
     var w = new Writer {
       Username = dto.Username,
