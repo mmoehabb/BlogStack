@@ -16,11 +16,11 @@ public static class WriterValidator
     return errors;
   }
 
-  private static bool IsEmailValid(string emailaddress)
+  private static bool IsEmailValid(string email)
   {
     try
     {
-      MailAddress m = new MailAddress(emailaddress);
+      MailAddress m = new MailAddress(email);
       return true;
     }
     catch (FormatException)

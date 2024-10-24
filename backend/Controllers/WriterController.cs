@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using BlogStack.Models;
+using BlogStack.DTOs;
 
 [ApiController]
 [Route("/api/writers")]
@@ -30,23 +31,28 @@ public class WriterController : ControllerBase
 
   [HttpPost]
   [Route("auth")]
-  public async Task<IActionResult> Auth(Writer w) 
+  public async Task<IActionResult> Auth(WriterDTOs.Auth w) 
   {
     var writer = await _ctx.Writers.FindAsync(w.Username);
     if (writer == null) {
       return NotFound();
     }
     var db_password = writer.Password;
-    if (db_password.Equals(Hasher.HmacSHA256(w.Password))) {
-      return Ok();
+    if (!db_password.Equals(Hasher.HmacSHA256(w.Password))) {
+      return Unauthorized();
     }
-    return Unauthorized();
+    return Ok();
   }
 
   [HttpPost]
   [Route("register")]
-  public async Task<IActionResult> Add(Writer w) 
+  public async Task<IActionResult> Add(WriterDTOs.Add dto) 
   {
+    var w = new Writer {
+      Username = dto.Username,
+      Password = dto.Password,
+      DisplayName = "",
+    };
     var errors = WriterValidator.Validate(w);
     if (errors.Any()) {
       return BadRequest(errors);
@@ -59,8 +65,21 @@ public class WriterController : ControllerBase
 
   [HttpDelete]
   [Route("delete")]
-  public async Task<IActionResult> Remove(Writer w) 
+  public async Task<IActionResult> Remove(WriterDTOs.Auth dto) 
   {
+    var w = new Writer {
+      Username = dto.Username,
+      Password = dto.Password,
+      DisplayName = "",
+    };
+    var writer = await _ctx.Writers.FindAsync(w.Username);
+    if (writer == null) {
+      return NotFound();
+    }
+    var db_password = writer.Password;
+    if (!db_password.Equals(Hasher.HmacSHA256(w.Password))) {
+      return Unauthorized();
+    }
     _ctx.Writers.Remove(w);
     await _ctx.SaveChangesAsync();
     return Ok();
