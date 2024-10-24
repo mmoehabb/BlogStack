@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using BlogStack.Models;
 using BlogStack.DTOs;
 
 [ApiController]
 [Route("/api/writers")]
-public class WriterController : ControllerBase
+public class WritersController : ControllerBase
 {
   private readonly BloggingContext _ctx;
 
-  public WriterController(BloggingContext context) 
+  public WritersController(BloggingContext context) 
   {
     this._ctx = context;
   }
@@ -18,7 +19,12 @@ public class WriterController : ControllerBase
   public async Task<IActionResult> Get(string username) 
   {
     var writer = await _ctx.Writers.FindAsync(username);
-    return Ok(writer);
+    if (writer == null) {
+      return NotFound();
+    }
+    var config = new MapperConfiguration(cfg => cfg.CreateMap<Writer, GetWriterDTO>());
+    var dto = (new Mapper(config)).Map<GetWriterDTO>(writer);
+    return Ok(dto);
   }
 
   [HttpGet]
@@ -26,7 +32,9 @@ public class WriterController : ControllerBase
   public IActionResult GetAll() 
   {
     var writers = _ctx.Writers.ToList();
-    return Ok(writers);
+    var config = new MapperConfiguration(cfg => cfg.CreateMap<List<Writer>, List<GetWriterDTO>>());
+    var dto = (new Mapper(config)).Map<List<GetWriterDTO>>(writers);
+    return Ok(dto);
   }
 
   [HttpPost]
