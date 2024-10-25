@@ -22,4 +22,4 @@ public class BloggingContext : DbContext
     modelBuilder.Entity<Bookmark>().ToTable("bookmarks");
     base.OnModelCreating(modelBuilder);
   }
-}
+} 
