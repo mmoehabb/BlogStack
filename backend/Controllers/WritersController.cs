@@ -59,7 +59,7 @@ public class WritersController : ControllerBase
     var w = new Writer {
       Username = dto.Username,
       Password = dto.Password,
-      DisplayName = "",
+      DisplayName = dto.DisplayName,
     };
     var errors = WriterValidator.Validate(w);
     if (errors.Any()) {
