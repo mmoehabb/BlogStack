@@ -45,11 +45,29 @@ public class WritersController : ControllerBase
     if (writer == null) {
       return NotFound();
     }
+    var db_token = writer.AccessToken;
+    if (!db_token.Equals(w.AccessToken)) {
+      return Unauthorized();
+    }
+    return Ok();
+  }
+
+  [HttpPost]
+  [Route("login")]
+  public async Task<IActionResult> login(LoginWriterDTO w) 
+  {
+    var writer = await _ctx.Writers.FindAsync(w.Username);
+    if (writer == null) {
+      return NotFound();
+    }
     var db_password = writer.Password;
     if (!db_password.Equals(Hasher.HmacSHA256(w.Password))) {
       return Unauthorized();
     }
-    return Ok();
+    writer.AccessToken = Hasher.GenRandomAccessToken();
+    _ctx.Writers.Update(writer);
+    _ctx.SaveChanges();
+    return Ok(writer.AccessToken);
   }
 
   [HttpPost]
@@ -58,14 +76,14 @@ public class WritersController : ControllerBase
   {
     var w = new Writer {
       Username = dto.Username,
-      Password = dto.Password,
+      Password = Hasher.HmacSHA256(dto.Password),
       DisplayName = dto.DisplayName,
+      AccessToken = Hasher.GenRandomAccessToken()
     };
     var errors = WriterValidator.Validate(w);
     if (errors.Any()) {
       return BadRequest(errors);
     }
-    w.Password = Hasher.HmacSHA256(w.Password);
     await _ctx.Writers.AddAsync(w);
     _ctx.SaveChanges();
     return Ok();
@@ -75,21 +93,16 @@ public class WritersController : ControllerBase
   [Route("delete")]
   public async Task<IActionResult> Remove(AuthWriterDTO dto) 
   {
-    var w = new Writer {
-      Username = dto.Username,
-      Password = dto.Password,
-      DisplayName = "",
-    };
-    var writer = await _ctx.Writers.FindAsync(w.Username);
+    var writer = await _ctx.Writers.FindAsync(dto.Username);
     if (writer == null) {
       return NotFound();
     }
-    var db_password = writer.Password;
-    if (!db_password.Equals(Hasher.HmacSHA256(w.Password))) {
+    var db_token = writer.AccessToken;
+    if (!db_token.Equals(dto.AccessToken)) {
       return Unauthorized();
     }
-    _ctx.Writers.Remove(w);
-    await _ctx.SaveChangesAsync();
+    _ctx.Writers.Remove(writer);
+    _ctx.SaveChanges();
     return Ok();
   }
 }

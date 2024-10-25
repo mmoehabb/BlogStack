@@ -57,7 +57,7 @@ public class PostsController : ControllerBase
   public async Task<IActionResult> Add(AddPostDTO dto) 
   {
     var writer = await _ctx.Writers.FindAsync(dto.Writer.Username);
-    if (writer == null || !writer.Password.Equals(Hasher.HmacSHA256(dto.Writer.Password))) {
+    if (writer == null || !writer.AccessToken.Equals(dto.Writer.AccessToken)) {
       return Unauthorized();
     }
     var newPost = new Post {
@@ -79,7 +79,7 @@ public class PostsController : ControllerBase
   public async Task<IActionResult> Remove(RmvPostDTO dto) 
   {
     var writer = await _ctx.Writers.FindAsync(dto.Writer.Username);
-    if (writer == null || !writer.Password.Equals(Hasher.HmacSHA256(dto.Writer.Password))) {
+    if (writer == null || !writer.AccessToken.Equals(dto.Writer.AccessToken)) {
       return Unauthorized();
     }
     var post = await _ctx.Posts.FindAsync(dto.Id);

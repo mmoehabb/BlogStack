@@ -16,6 +16,11 @@ namespace BlogStack.DTOs
   public struct AuthWriterDTO
   {
     public required string Username { get; set; }
+    public required string AccessToken { get; set; }
+  }
+  public struct LoginWriterDTO
+  {
+    public required string Username { get; set; }
     public required string Password { get; set; }
   }
 }

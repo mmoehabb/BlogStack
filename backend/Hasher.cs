@@ -25,4 +25,12 @@ public static class Hasher
       }
       return hex.ToString();
   }
+  public static string GenRandomAccessToken() {
+    var allChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  
+    var random = new Random();  
+    var randomString = new string(Enumerable.Repeat(allChar, 8)
+      .Select(token => token[random.Next(token.Length)])
+      .ToArray());
+    return HmacSHA256(randomString);  
+  }
 }

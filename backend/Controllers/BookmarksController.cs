@@ -42,7 +42,7 @@ public class BookmarksController : ControllerBase
   public async Task<IActionResult> Add(AddBookmarkDTO dto) 
   {
     var writer = await _ctx.Writers.FindAsync(dto.Writer.Username);
-    if (writer == null || !writer.Password.Equals(Hasher.HmacSHA256(dto.Writer.Password))) {
+    if (writer == null || !writer.AccessToken.Equals(dto.Writer.AccessToken)) {
       return Unauthorized();
     }
     var post = await _ctx.Posts.FindAsync(dto.PostId);
@@ -74,7 +74,7 @@ public class BookmarksController : ControllerBase
   public async Task<IActionResult> Remove(RmvBookmarkDTO dto) 
   {
     var writer = await _ctx.Writers.FindAsync(dto.Writer.Username);
-    if (writer == null || !writer.Password.Equals(Hasher.HmacSHA256(dto.Writer.Password))) {
+    if (writer == null || !writer.AccessToken.Equals(dto.Writer.AccessToken)) {
       return Unauthorized();
     }
     var b = await _ctx.Bookmarks.FindAsync(dto.Id);
