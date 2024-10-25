@@ -43,7 +43,7 @@ public class PostsController : ControllerBase
 
   [HttpGet]
   [Route("{index}/{limit}")]
-  public IActionResult GetOfWriter(int index, int limit) 
+  public IActionResult GetLimit(int index, int limit) 
   {
     if (index < 0 || limit > 20) {
       return BadRequest("index should be at least 0, and limit at most 20.");
